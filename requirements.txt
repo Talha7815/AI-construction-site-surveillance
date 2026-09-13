@@ -1,0 +1,16 @@
+streamlit
+fastapi
+uvicorn
+python-multipart
+ultralytics
+huggingface_hub
+opencv-python-headless
+scikit-image
+seaborn
+lapx
+pandas
+matplotlib
+torch
+torchvision
+imageio-ffmpeg
+ipywidgets
