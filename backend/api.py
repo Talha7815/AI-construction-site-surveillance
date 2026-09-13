@@ -25,7 +25,14 @@ UPLOADS.mkdir(exist_ok=True)
 OUTPUTS.mkdir(exist_ok=True)
 
 app = FastAPI(title="AI Surveillance API", version="0.1.0")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+# ✅ CHANGED: CORS now reads from an Environment Variable on Render
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[os.environ.get("FRONTEND_URL", "*")], 
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 
 def _load_pipeline():
@@ -136,4 +143,6 @@ async def analyze(file: UploadFile = File(...)) -> dict[str, Any]:
 
 app.mount("/media", StaticFiles(directory=OUTPUTS), name="media")
 app.mount("/uploads", StaticFiles(directory=UPLOADS), name="uploads")
-app.mount("/", StaticFiles(directory=FRONTEND, html=True), name="frontend")
+
+# ✅ CHANGED: The line below was deleted because your frontend is on Netlify.
+# app.mount("/", StaticFiles(directory=FRONTEND, html=True), name="frontend")tml=True), name="frontend")
